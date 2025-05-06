@@ -507,6 +507,48 @@ app.get('/countriesCitiesWithTwoOrMoreEmployees', async(req, res)=>{
     }
 });
 
+app.get('/jobs', async(req, res)=>{
+    try{
+        const result = await pool.query(`
+            SELECT * from jobs;
+        `);
+        res.json(result.rows);
+    }catch(err){
+        res.status(500).json({Error: err.message});
+    }
+});
+
+app.get('/Count_E', async(req, res)=>{
+    try{
+        const result = await pool.query(`
+            SELECT count(Employee_id) from Employees;
+        `);
+        res.json(result.rows);
+    }catch(err){
+        res.status(500).json({Error: err.message});
+    }
+});
+
+app.get('/Count_R', async(req, res)=>{
+    try{
+        const result = await pool.query(`
+            SELECT count(Region_id) from Regions;
+        `);
+        res.json(result.rows);
+    }catch(err){
+        res.status(500).json({Error: err.message});
+    }
+});
+app.get('/Count_D', async(req, res)=>{
+    try{
+        const result = await pool.query(`
+            SELECT count(Department_id) from employees;
+        `);
+        res.json(result.rows);
+    }catch(err){
+        res.status(500).json({Error: err.message});
+    }
+});
 // 75) Write a query to display full name (first and last name), job title, and starting and ending date of last jobs for those employees with worked without a commission percentage
 app.get('/employeesWithoutCommission', async(req, res)=>{
     try{
